@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Regex_v1"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <Color x:Key="ExpanderBtnBrush">#FFABD19C</Color>
+
     </Application.Resources>
 </Application>
