@@ -21,58 +21,97 @@ namespace Regex_v1
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Expander> expList;
+        public int NrExpandera { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-        }
-        
-        private void Chbx4_Click(object sender, RoutedEventArgs e)
-        {
-            Exp4.IsExpanded = Chbx4.IsChecked == true ? true : false;
+            expList = new List<Expander> { Exp1, Exp2, Exp3, Exp4 };
+            BtnCreate.IsEnabled = false;
+
         }
 
-        private void Chbx3_Click(object sender, RoutedEventArgs e)
+        private void Exp_Expanded(object sender, RoutedEventArgs e)
         {
-            Exp3.IsExpanded = Chbx3.IsChecked == true ? true : false;
-        }
-
-        private void Chbx2_Click(object sender, RoutedEventArgs e)
-        {
-            Exp2.IsExpanded = Chbx2.IsChecked == true ? true : false;
-        }
-
-        private void Chbx1_Click(object sender, RoutedEventArgs e)
-        {
-            Exp1.IsExpanded = Chbx1.IsChecked == true ? true : false;
-        }
-
-        private void year_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Regex regex = new Regex("^[/d/d/d/d]$");    //nie działa prawidłowo
-            MatchCollection matches1 = regex.Matches(year1.Text);
-            MatchCollection matches2 = regex.Matches(year2.Text);
-
-            if (matches1.Count != 1 || matches2.Count != 1)
+            Expander thisExpander = e.Source as Expander;
+            foreach (Expander exp in expList)
             {
-                lbl4digits.Visibility = Visibility.Visible;
-                lblYearCompare.Visibility = Visibility.Hidden;
-                btnDateOK.IsEnabled = false;
-            }
-            else
-            {
-                lbl4digits.Visibility = Visibility.Hidden;
-                var year1text = int.Parse(year1.Text);
-                var year2text = int.Parse(year2.Text);
-                if(year1text>year2text)
+                if (exp == thisExpander)
                 {
-                    lblYearCompare.Visibility = Visibility.Visible;
-                    btnDateOK.IsEnabled = false;
+                    exp.IsExpanded = true;
+                    exp.FontWeight = FontWeights.Bold;
+                    NrExpandera = int.Parse(exp.Name.Substring(3));
                 }
                 else
                 {
-                    lblYearCompare.Visibility = Visibility.Hidden;
-                    btnDateOK.IsEnabled = true;
+                    exp.IsExpanded = false;
+                    exp.FontWeight = FontWeights.Normal;
                 }
+            }
+            BtnCreate.IsEnabled = true;
+            
+        }
+
+        private void Exp_Collapsed(object sender, RoutedEventArgs e)
+        {
+            BtnCreate.IsEnabled = false;
+            foreach(Expander exp in expList)
+            {
+                exp.FontWeight = FontWeights.Normal;
+            }
+        }
+
+        private void ex2_btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if(String.IsNullOrEmpty(ex2_textbox.Text))
+            {
+                return;
+            }
+            ex2_lista.Items.Add(ex2_textbox.Text);
+            ex2_textbox.Text = String.Empty;
+        }
+
+        private void CheckIfEnter_ex2(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ex2_btnAdd_Click(sender, e);
+            }
+        }
+
+        private void ex2_btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if(ex2_lista.SelectedItem!=null)
+            {
+                ex2_lista.Items.Remove(ex2_lista.SelectedItem);
+                ex2_lista.UnselectAll();
+            }
+        }
+
+        private void ex3_btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(ex3_textbox.Text))
+            {
+                return;
+            }
+            ex3_lista.Items.Add(ex3_textbox.Text);
+            ex3_textbox.Text = String.Empty;
+        }
+
+        private void CheckIfEnter_ex3(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ex3_btnAdd_Click(sender, e);
+            }
+        }
+
+        private void ex3_btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (ex3_lista.SelectedItem != null)
+            {
+                ex3_lista.Items.Remove(ex3_lista.SelectedItem);
+                ex3_lista.UnselectAll();
             }
         }
     }

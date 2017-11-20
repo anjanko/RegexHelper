@@ -54,6 +54,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RegexConverter.cs" />
+    <Compile Include="SessionContext.cs" />
     <Compile Include="UserControls\Expand_i_rb.xaml.cs">
       <DependentUpon>Expand_i_rb.xaml</DependentUpon>
     </Compile>
