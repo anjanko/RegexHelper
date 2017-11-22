@@ -6,6 +6,7 @@
     <Application.Resources>
 
         <Color x:Key="ExpanderBtnBrush">#FFABD19C</Color>
+        <Image x:Key="CopyImage" Source="copy1.bmp"/>
 
     </Application.Resources>
 </Application>

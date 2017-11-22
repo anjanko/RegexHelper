@@ -31,3 +31,4 @@ H:\Dokumenty\Studia 5 sem\programowanie\mozliwy projekt\Regex\projekt-na-zal\Reg
 H:\Dokumenty\Studia 5 sem\programowanie\mozliwy projekt\Regex\projekt-na-zal\Regex_v1\Regex_v1\obj\Debug\Regex_v1.Properties.Resources.resources
 H:\Dokumenty\Studia 5 sem\programowanie\mozliwy projekt\Regex\projekt-na-zal\Regex_v1\Regex_v1\obj\Debug\Regex_v1.csproj.GenerateResource.Cache
 H:\Dokumenty\Studia 5 sem\programowanie\mozliwy projekt\Regex\projekt-na-zal\Regex_v1\Regex_v1\obj\Debug\App.baml
+H:\Dokumenty\Studia 5 sem\programowanie\mozliwy projekt\Regex\projekt-na-zal\Regex_v1\Regex_v1\obj\Debug\Regex_v1.Resources.resources

@@ -36,7 +36,7 @@
 
         <Rectangle HorizontalAlignment="Left" Height="105" Stroke="Black" VerticalAlignment="Top" Width="517" Fill="{DynamicResource CiemnaZielen}"/>
         <Label Content="Create regular expressions and use them in your project" HorizontalAlignment="Center" Margin="0,15,0,0" VerticalAlignment="Top" FontSize="18" Foreground="#FF7EC949"/>
-        <Button x:Name="BtnCreate" Content="Create" HorizontalAlignment="Center" Height="27" Margin="0,0,0,60" VerticalAlignment="Bottom" Width="108" Style="{DynamicResource BtnStyle}" IsEnabled="False"/>
+        <Button   x:Name="BtnCreate" Content="Create" HorizontalAlignment="Center" Height="27" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="108" Style="{DynamicResource BtnStyle}" IsEnabled="False" Click="BtnCreate_Click" RenderTransformOrigin="1.574,1.815"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="40" Margin="0,0,0,15" VerticalAlignment="Bottom" Width="Auto" Visibility="Collapsed">
             <Label x:Name="lblWynik"  Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="17"/>
         </Border>
@@ -47,6 +47,17 @@
 
                     <Expander x:Name="Exp1" Expanded="Exp_Expanded" Collapsed="Exp_Collapsed" FontSize="16" Header="Create pattern" Margin="0,1,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <Grid Background="{DynamicResource SzaraZielen}" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0"/>
+                            <ToolBarPanel HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Grid.Row="1" Width="100">
+                            </ToolBarPanel>
+                            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" Grid.Row="2" VerticalAlignment="Top" Width="120"/>
+                            <CheckBox Content="Case sensitive" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,0,0,0" Grid.Row="2"/>
+
                         </Grid>
                     </Expander>
 
@@ -93,16 +104,16 @@
                             </Button>
                             <ListBox x:Name="ex3_lista"  FontWeight="Normal" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="184" Grid.Row="2" Margin="26,10,0,0" RenderTransformOrigin="0.58,-0.255" />
                             <Button x:Name="ex3_btnDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" Width="75" Style="{DynamicResource ResourceKey=ExpanderBtnStyle}" Margin="250,58,0,0">
-                            <Button.Background>
-                                <SolidColorBrush Color="{DynamicResource ExpanderBtnBrush}"/>
-                            </Button.Background>
+                                <Button.Background>
+                                    <SolidColorBrush Color="{DynamicResource ExpanderBtnBrush}"/>
+                                </Button.Background>
                             </Button>
                         </Grid>
                     </Expander>
 
                 </Grid>
                 <Grid HorizontalAlignment="Stretch" Panel.ZIndex="3" Margin="0,20,0,0">
-                    <Expander x:Name="Exp4" FontSize="16" Expanded="Exp_Expanded" Collapsed="Exp_Collapsed" Header="Look for a date" Margin="0,1,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Expander x:Name="Exp4" FontSize="16" Expanded="Exp_Expanded" Collapsed="Exp_Collapsed" Header="Match a date" Margin="0,1,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <Grid  Background="{DynamicResource SzaraZielen}"  >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="29*"/>
@@ -121,9 +132,23 @@
                     </Expander>
 
                 </Grid>
+                <Grid HorizontalAlignment="Stretch" Panel.ZIndex="3" Margin="0,20,0,0">
+                    <Expander x:Name="Exp5" FontSize="16" Expanded="Exp_Expanded" Collapsed="Exp_Collapsed" Header="Match an email" Margin="0,1,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid  Background="{DynamicResource SzaraZielen}"  >
+                            <Label Content="Creates regular expression pattern to match email adress" Style="{DynamicResource ExpanderContentLbl}" Margin="0,0,0,15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
+                        </Grid>
+                    </Expander>
+
+                </Grid>
             </StackPanel>
 
         </ScrollViewer>
+        <TextBlock Name="TxtCreateResult" Text=""  MaxWidth="470" HorizontalAlignment="Center" Margin="0,0,0,70" VerticalAlignment="Bottom" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource JasnaZielen}" Focusable="True" Cursor="IBeam" TextWrapping="WrapWithOverflow" IsHyphenationEnabled="True" />
+        <Image Name="ImgCopy"  ImageFailed="Image_ImageFailed" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" Width="27" Height="27"  Focusable="True" Source="pack://siteoforigin:,,,/Resources/copy1.bmp" ToolTip="Copy" MouseLeftButtonUp="ImgCopy_Click"/>
+
+        <Rectangle Name="ImgRamka" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,18,18" VerticalAlignment="Bottom" Width="31" Height="31" StrokeThickness="3" Stroke="{DynamicResource JasnaZielen}"/>
+
+
     </Grid>
 </Window>

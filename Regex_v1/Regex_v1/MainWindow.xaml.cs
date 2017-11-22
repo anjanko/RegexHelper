@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using System.Windows.Forms;
 
 namespace Regex_v1
 {
@@ -22,13 +23,20 @@ namespace Regex_v1
     public partial class MainWindow : Window
     {
         List<Expander> expList;
-        public int NrExpandera { get; set; }
+        List<string> Ex1_TokensList;
+        List<string> Ex2_List;
+        List<string> Ex3_List_notAllowed;
+        private int Ex4_format;
+        private int Ex4_searchOption;
+        internal int NrExpandera;
         public MainWindow()
         {
             InitializeComponent();
-            expList = new List<Expander> { Exp1, Exp2, Exp3, Exp4 };
+            expList = new List<Expander> { Exp1, Exp2, Exp3, Exp4, Exp5 };
             BtnCreate.IsEnabled = false;
-
+            Ex1_TokensList = new List<string>();
+            Ex2_List = new List<string>();
+            Ex3_List_notAllowed = new List<string>();
         }
 
         private void Exp_Expanded(object sender, RoutedEventArgs e)
@@ -49,7 +57,15 @@ namespace Regex_v1
                 }
             }
             BtnCreate.IsEnabled = true;
-            
+            ExpanderChanged();
+        }
+
+        private void ExpanderChanged()
+        {
+            TxtCreateResult.Text = string.Empty;
+            ImgCopy.Visibility = Visibility.Collapsed;
+            ImgRamka.Visibility = Visibility.Collapsed;
+
         }
 
         private void Exp_Collapsed(object sender, RoutedEventArgs e)
@@ -59,6 +75,8 @@ namespace Regex_v1
             {
                 exp.FontWeight = FontWeights.Normal;
             }
+            ExpanderChanged();
+
         }
 
         private void ex2_btnAdd_Click(object sender, RoutedEventArgs e)
@@ -71,7 +89,7 @@ namespace Regex_v1
             ex2_textbox.Text = String.Empty;
         }
 
-        private void CheckIfEnter_ex2(object sender, KeyEventArgs e)
+        private void CheckIfEnter_ex2(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -114,5 +132,105 @@ namespace Regex_v1
                 ex3_lista.UnselectAll();
             }
         }
+
+        private void BtnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            string result;
+            CollectExpanderData(NrExpandera);
+            switch (NrExpandera)
+            {
+                case 1:
+                    result = RegexConverter.Exp1_Pattern(Ex1_TokensList);
+                    break;
+                case 2:
+                    result = RegexConverter.Exp2_Words(Ex2_List);
+                    break;
+                case 3:
+                    result = RegexConverter.Exp3_NotAllowed(Ex3_List_notAllowed);
+                    break;
+                case 4:
+                    result = RegexConverter.Exp4_Date(Ex4_format, Ex4_searchOption);
+                    break;
+                case 5:
+                    result = RegexConverter.Exp5_Email();
+                    break;
+                default:
+                    result = string.Empty;
+                    break;
+            }
+            TxtCreateResult.Text = result;
+            ImgCopy.Visibility = Visibility.Visible;
+        }
+
+        private void CollectExpanderData(int nrExpandera)
+        {
+            switch(nrExpandera)
+            {
+                case 1:
+                    break;
+                case 2:
+                    bool alreadyOnList;
+                    Ex2_List.Clear();
+                    foreach(var item in ex2_lista.Items)
+                    {
+                        alreadyOnList = false;
+                        foreach (var pozycja in Ex2_List)
+                        {
+                            if(pozycja.Equals(item.ToString()))
+                            {
+                                alreadyOnList = true;
+                                break;
+                            }
+                        }
+                        if(!alreadyOnList)
+                        {
+                            Ex2_List.Add(item.ToString());
+                        }
+                    }
+                    break;
+                case 3:
+                    bool _alreadyOnList;
+                    Ex3_List_notAllowed.Clear();
+                    foreach (var item in ex3_lista.Items)
+                    {
+                        _alreadyOnList = false;
+                        foreach (var pozycja in Ex3_List_notAllowed)
+                        {
+                            if (pozycja.Equals(item.ToString()))
+                            {
+                                _alreadyOnList = true;
+                                break;
+                            }
+                        }
+                        if (!_alreadyOnList)
+                        {
+                            Ex3_List_notAllowed.Add(item.ToString());
+                        }
+                    }
+                    break;
+                case 4:
+                    Ex4_format = ex4_rbDD.IsChecked == true ? 0 : 1;
+                    Ex4_searchOption = ex4_rbTylkoData.IsChecked == true ? 0 : 1;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        private void Image_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            MessageBox.Show(e.ErrorException.Message);
+        }
+
+        private void ImgCopy_Click(object sender, MouseButtonEventArgs e)
+        {
+            ImgRamka.Visibility = Visibility.Visible;
+            Clipboard.SetText(TxtCreateResult.Text);
+        }
+
+        //create po kliknięciu zamienia się na TEST IT, nowy event handler do przycisku
+        //TEST IT: nowe okno, gdzie pisze się ciąg znaków testowych, a regex match sprawdza czy się zgadza
+        //+ funckje case sensitive itp.
     }
 }
